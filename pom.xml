@@ -5,13 +5,18 @@
 
     <groupId>com.example</groupId>
     <artifactId>maven-project</artifactId>
-    <version>2.0</version>
+    <version>2.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-
+     <repositories>
+         <repository>
+            <id>nexus</id>
+            <url>http://13.55.252.164:8081/repository/test-demo-proxy/</url>
+        </repository>
+     </repositories>
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
-        <sonar.host.url>http://13.55.0.208:9000/</sonar.host.url>
+        <sonar.host.url>http://3.107.187.154:9000/</sonar.host.url>
         <sonar.token>sqa_0e5052d5e56410f35204fdad77d103fcde8115de</sonar.token>
     </properties>
    
@@ -19,11 +24,11 @@
     <distributionManagement>
         <repository>
             <id>nexus</id>
-            <url>http://13.54.124.132:8081/repository/testing-demo-release/</url>
+            <url>http://13.55.252.164:8081/repository/testing-demo-release/</url>
         </repository>
         <snapshotRepository>
             <id>nexus</id>
-            <url>http://13.54.124.132:8081/repository/testing-demo-snapshot/</url>
+            <url>http://13.55.252.164:8081/repository/testing-demo-snapshot/</url>
         </snapshotRepository>
     </distributionManagement>
 
