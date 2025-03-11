@@ -1,43 +1,91 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>com.example.maven-project</groupId>
+    <groupId>com.example</groupId>
     <artifactId>maven-project</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <relativePath>../pom.xml</relativePath>
+    <version>0.0.2-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath> <!-- Adjust the relative path if necessary -->
   </parent>
 
   <artifactId>server</artifactId>
   <packaging>jar</packaging>
   <name>Server</name>
-  <description>Logic.</description>
+  <description>Server-side logic for the application</description>
+
+  <properties>
+    <maven.compiler.source>8</maven.compiler.source>
+    <maven.compiler.target>8</maven.compiler.target>
+    <sonar.host.url>http://54.206.66.110:9000/</sonar.host.url>
+    <sonar.token>sqa_0e5052d5e56410f35204fdad77d103fcde8115de</sonar.token> <!-- Update the token if needed -->
+  </properties>
+
+  <repositories>
+    <repository>
+      <id>nexus</id>
+      <url>http://13.236.68.96:8081/repository/test-demo-proxy/</url>
+    </repository>
+  </repositories>
+
+  <distributionManagement>
+    <repository>
+      <id>nexus</id>
+      <url>http://13.236.68.96:8081/repository/testing-demo-release/</url>
+    </repository>
+    <snapshotRepository>
+      <id>nexus</id>
+      <url>http://13.236.68.96:8081/repository/testing-demo-snapshot/</url>
+    </snapshotRepository>
+  </distributionManagement>
 
   <build>
-    <finalName>${project.artifactId}</finalName>
+    <plugins>
+      <!-- Compiler Plugin -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
+        <configuration>
+          <source>${maven.compiler.source}</source>
+          <target>${maven.compiler.target}</target>
+        </configuration>
+      </plugin>
+
+      <!-- SonarQube Plugin -->
+      <plugin>
+        <groupId>org.sonarsource.scanner.maven</groupId>
+        <artifactId>sonar-maven-plugin</artifactId>
+        <version>3.9.1.2184</version>
+      </plugin>
+    </plugins>
   </build>
 
   <dependencies>
+    <!-- JUnit -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit-dep</artifactId>
       <scope>test</scope>
     </dependency>
 
+    <!-- Hamcrest for assertions -->
     <dependency>
       <groupId>org.hamcrest</groupId>
       <artifactId>hamcrest-core</artifactId>
       <scope>test</scope>
     </dependency>
 
+    <!-- Hamcrest Library -->
     <dependency>
       <groupId>org.hamcrest</groupId>
       <artifactId>hamcrest-library</artifactId>
       <scope>test</scope>
     </dependency>
 
+    <!-- Mockito for mocking in unit tests -->
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
