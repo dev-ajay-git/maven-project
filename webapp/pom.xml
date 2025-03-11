@@ -1,75 +1,73 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>com.example.maven-project</groupId>
+    <groupId>com.example</groupId>
     <artifactId>maven-project</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <relativePath>../pom.xml</relativePath>
+    <version>0.0.2-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath> <!-- Adjust the relative path if necessary -->
   </parent>
 
   <artifactId>webapp</artifactId>
   <packaging>war</packaging>
   <name>Webapp</name>
-  <description>Webapp.</description>
+  <description>Web Application Example</description>
+
+  <properties>
+    <maven.compiler.source>8</maven.compiler.source>
+    <maven.compiler.target>8</maven.compiler.target>
+    <sonar.host.url>http://54.206.66.110:9000/</sonar.host.url>
+    <sonar.token>sqa_0e5052d5e56410f35204fdad77d103fcde8115de</sonar.token> <!-- You can update this if you need to use environment variables for the token -->
+  </properties>
+
+  <repositories>
+    <repository>
+      <id>nexus</id>
+      <url>http://13.236.68.96:8081/repository/test-demo-proxy/</url>
+    </repository>
+  </repositories>
+
+  <distributionManagement>
+    <repository>
+      <id>nexus</id>
+      <url>http://13.236.68.96:8081/repository/testing-demo-release/</url>
+    </repository>
+    <snapshotRepository>
+      <id>nexus</id>
+      <url>http://13.236.68.96:8081/repository/testing-demo-snapshot/</url>
+    </snapshotRepository>
+  </distributionManagement>
 
   <build>
-    <finalName>${project.artifactId}</finalName>
-
     <plugins>
+      <!-- Maven Compiler Plugin -->
       <plugin>
-        <groupId>org.mortbay.jetty</groupId>
-        <artifactId>jetty-maven-plugin</artifactId>
-        <version>8.1.16.v20140903</version> <!-- Defined Jetty version -->
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
+        <configuration>
+          <source>${maven.compiler.source}</source>
+          <target>${maven.compiler.target}</target>
+        </configuration>
       </plugin>
 
-      <!-- ✅ SonarQube Plugin -->
+      <!-- SonarQube Plugin -->
       <plugin>
         <groupId>org.sonarsource.scanner.maven</groupId>
         <artifactId>sonar-maven-plugin</artifactId>
         <version>3.9.1.2184</version>
       </plugin>
+
+      <!-- Jetty Plugin (Optional, you can include this if you want Jetty integration for running locally) -->
+      <plugin>
+        <groupId>org.mortbay.jetty</groupId>
+        <artifactId>jetty-maven-plugin</artifactId>
+        <version>9.4.35.v20201120</version> <!-- Adjust as needed -->
+      </plugin>
     </plugins>
   </build>
 
-  <dependencies>
-    <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>servlet-api</artifactId>
-      <version>2.5</version>  <!-- Added version -->
-      <scope>provided</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>javax.servlet.jsp</groupId>
-      <artifactId>jsp-api</artifactId>
-      <version>2.2</version>  <!-- Added version -->
-      <scope>provided</scope>
-    </dependency>
-  </dependencies>
-
-  <!-- ✅ SonarQube Configuration -->
-  <profiles>
-    <profile>
-      <id>sonar</id>
-      <activation>
-        <activeByDefault>true</activeByDefault>
-      </activation>
-      <properties>
-        <sonar.projectKey>webapp</sonar.projectKey>
-        <sonar.projectName>Web Application</sonar.projectName>
-        <sonar.projectVersion>1.0</sonar.projectVersion>
-        <sonar.sources>src/main/java</sonar.sources>
-        <sonar.tests>src/test/java</sonar.tests>
-        <sonar.language>java</sonar.language>
-        <sonar.sourceEncoding>UTF-8</sonar.sourceEncoding>
-        <sonar.host.url>http://localhost:9000</sonar.host.url>
-        <sonar.login>your_sonar_token</sonar.login>
-      </properties>
-    </profile>
-  </profiles>
-
 </project>
-
