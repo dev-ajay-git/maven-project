@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -6,38 +5,34 @@
 
     <groupId>com.example</groupId>
     <artifactId>maven-project</artifactId>
-    <version>2.0-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <!-- Maven Repositories -->
-    <repositories>
-        <repository>
-            <id>nexus</id>
-            <url>http://13.236.68.96:8081/repository/test-demo-proxy/</url>
-        </repository>
-    </repositories>
-
-    <!-- Project Properties -->
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <sonar.host.url>http://54.206.66.110:9000/</sonar.host.url>
         <sonar.token>sqa_0e5052d5e56410f35204fdad77d103fcde8115de</sonar.token>
     </properties>
-
-    <!-- Distribution Management for Deployment -->
+    <repositories>    
+        <repository>
+            <id>nexus</id>
+            <url>http://13.236.68.96:8081/repository/test-demo-proxy/</url>
+        </repository>   
+    </repositories>
     <distributionManagement>
         <repository>
-            <id>nexus-release</id>
+            <id>nexus</id>
             <url>http://13.236.68.96:8081/repository/testing-demo-release/</url>
         </repository>
         <snapshotRepository>
-            <id>nexus-snapshot</id>
+            <id>nexus</id>
             <url>http://13.236.68.96:8081/repository/testing-demo-snapshot/</url>
         </snapshotRepository>
+
+
     </distributionManagement>
 
-    <!-- Build Configuration -->
     <build>
         <plugins>
             <!-- Compiler Plugin -->
@@ -51,21 +46,7 @@
                 </configuration>
             </plugin>
 
-            <!-- Jar Plugin without Classifier -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.4.1</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <!-- SonarQube Plugin for Code Quality Analysis -->
+            <!-- SonarQube Plugin -->
             <plugin>
                 <groupId>org.sonarsource.scanner.maven</groupId>
                 <artifactId>sonar-maven-plugin</artifactId>
@@ -73,5 +54,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
